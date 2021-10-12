@@ -1,8 +1,6 @@
 package pt.amane.dslearnbds.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -11,16 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import pt.amane.dslearnbds.entities.enums.ResourceType;
-
 @Entity
-@Table(name = "tb_resource")
-public class Resource implements Serializable {
+@Table(name = "tb_section")
+public class Section implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -31,29 +24,28 @@ public class Resource implements Serializable {
 	private String description;
 	private Integer position;
 	private String imgUri;
-	private ResourceType type;
 
-	@OneToMany(mappedBy = "resource")
-	private List<Section> sections = new ArrayList<>();
-
-	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "offer_id")
-	private Offer offer;
+	@JoinColumn(name = "resource_id")
+	private Resource resource;
 
-	public Resource() {
+	@ManyToOne
+	@JoinColumn(name = "prerequisite_id")
+	private Section prerequisite;
+
+	public Section() {
 	}
 
-	public Resource(Long id, String title, String description, Integer position, String imgUri, ResourceType type,
-			String externalLink, Offer offer) {
+	public Section(Long id, String title, String description, Integer position, String imgUri, Resource resource,
+			Section prerequisite) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.position = position;
 		this.imgUri = imgUri;
-		this.type = type;
-		// this.externalLink = externalLink;
-		this.offer = offer;
+		this.resource = resource;
+		this.prerequisite = prerequisite;
 	}
 
 	public Long getId() {
@@ -96,24 +88,20 @@ public class Resource implements Serializable {
 		this.imgUri = imgUri;
 	}
 
-	public ResourceType getType() {
-		return type;
+	public Resource getResource() {
+		return resource;
 	}
 
-	public void setType(ResourceType type) {
-		this.type = type;
+	public void setResource(Resource resource) {
+		this.resource = resource;
 	}
 
-	public List<Section> getSections() {
-		return sections;
+	public Section getPrerequisite() {
+		return prerequisite;
 	}
 
-	public Offer getOffer() {
-		return offer;
-	}
-
-	public void setOffer(Offer offer) {
-		this.offer = offer;
+	public void setPrerequisite(Section prerequisite) {
+		this.prerequisite = prerequisite;
 	}
 
 	@Override
@@ -129,7 +117,7 @@ public class Resource implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Resource other = (Resource) obj;
+		Section other = (Section) obj;
 		return Objects.equals(id, other.id);
 	}
 
