@@ -34,17 +34,17 @@ public class Enrollment {
 	private Set<Lesson> lessonsDone = new HashSet<>();
 
 	@OneToMany(mappedBy = "enrollment")
-	private List<Deliver> delivers = new ArrayList<Deliver>();
+	private List<Deliver> deliveries = new ArrayList<Deliver>();
 
 	public Enrollment() {
 	}
 
-	public Enrollment(User user, Offer offer, Instant enrollment, Instant refundMoment, boolean available,
+	public Enrollment(User user, Offer offer, Instant enrollMoment, Instant refundMoment, boolean available,
 			boolean onlyUpdate) {
 		super();
 		id.setUser(user);
 		id.setOffer(offer);
-		this.enrollMoment = enrollment;
+		this.enrollMoment = enrollMoment;
 		this.refundMoment = refundMoment;
 		this.available = available;
 		this.onlyUpdate = onlyUpdate;
@@ -70,8 +70,8 @@ public class Enrollment {
 		return enrollMoment;
 	}
 
-	public void setEnrollMoment(Instant enrollment) {
-		this.enrollMoment = enrollment;
+	public void setEnrollMoment(Instant enrollMoment) {
+		this.enrollMoment = enrollMoment;
 	}
 
 	public Instant getRefundMoment() {
@@ -102,8 +102,8 @@ public class Enrollment {
 		return lessonsDone;
 	}
 
-	public List<Deliver> getDelivers() {
-		return delivers;
+	public List<Deliver> getDeliveries() {
+		return deliveries;
 	}
 
 }

@@ -1,6 +1,6 @@
 package pt.amane.dslearnbds.entities.enums;
 
-public enum DeliveStatus {
+public enum DeliverStatus {
 	PENDING, ACCEPTED, REJECTED;
 
 }

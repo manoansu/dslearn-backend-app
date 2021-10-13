@@ -45,14 +45,13 @@ public class Resource implements Serializable {
 	}
 
 	public Resource(Long id, String title, String description, Integer position, String imgUri, ResourceType type,
-			String externalLink, Offer offer) {
+			 Offer offer) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.position = position;
 		this.imgUri = imgUri;
 		this.type = type;
-		// this.externalLink = externalLink;
 		this.offer = offer;
 	}
 

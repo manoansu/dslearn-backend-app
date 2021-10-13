@@ -14,7 +14,7 @@ import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import pt.amane.dslearnbds.entities.enums.DeliveStatus;
+import pt.amane.dslearnbds.entities.enums.DeliverStatus;
 
 @Entity
 @Table(name = "tb_deliver")
@@ -29,15 +29,12 @@ public class Deliver implements Serializable {
 
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant moment;
-	private DeliveStatus status;
+	private DeliverStatus status;
 	private String feedback;
 	private Integer correctCount;
 
 	@ManyToOne
-	@JoinColumns({
-		@JoinColumn(name = "user_id"),
-		@JoinColumn(name = "offer_id")
-	})
+	@JoinColumns({ @JoinColumn(name = "user_id"), @JoinColumn(name = "offer_id") })
 	private Enrollment enrollment;
 
 	@ManyToOne
@@ -47,7 +44,7 @@ public class Deliver implements Serializable {
 	public Deliver() {
 	}
 
-	public Deliver(Long id, String uri, Instant moment, DeliveStatus status, String feedback, Integer correctCount,
+	public Deliver(Long id, String uri, Instant moment, DeliverStatus status, String feedback, Integer correctCount,
 			Enrollment enrollment, Lesson lesson) {
 		super();
 		this.id = id;
@@ -84,11 +81,11 @@ public class Deliver implements Serializable {
 		this.moment = moment;
 	}
 
-	public DeliveStatus getStatus() {
+	public DeliverStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(DeliveStatus status) {
+	public void setStatus(DeliverStatus status) {
 		this.status = status;
 	}
 
