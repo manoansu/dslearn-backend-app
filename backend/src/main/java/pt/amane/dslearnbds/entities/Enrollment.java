@@ -1,33 +1,40 @@
 package pt.amane.dslearnbds.entities;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import pt.amane.dslearnbds.entities.pk.EnrollmentPk;
+
 @Entity
 @Table(name = "tb_enrollment")
 public class Enrollment {
 
 	@EmbeddedId
 	private EnrollmentPk id = new EnrollmentPk();
-	
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant enrollMoment;
-	
+
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant refundMoment;
 	private boolean available;
 	private boolean onlyUpdate;
-	
+
 	@ManyToMany(mappedBy = "enrollmentsDone")
 	private Set<Lesson> lessonsDone = new HashSet<>();
+
+	@OneToMany(mappedBy = "enrollment")
+	private List<Deliver> delivers = new ArrayList<Deliver>();
 
 	public Enrollment() {
 	}
@@ -89,6 +96,14 @@ public class Enrollment {
 
 	public void setOnlyUpdate(boolean onlyUpdate) {
 		this.onlyUpdate = onlyUpdate;
+	}
+
+	public Set<Lesson> getLessonsDone() {
+		return lessonsDone;
+	}
+
+	public List<Deliver> getDelivers() {
+		return delivers;
 	}
 
 }
