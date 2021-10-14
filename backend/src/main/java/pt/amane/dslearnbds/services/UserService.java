@@ -23,9 +23,16 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private AuthService authService;
 
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
+		
+		// verifica se user esta logado ou nao ou se é admin
+		authService.validateSelfOrAdmin(id);
+		
 		Optional<User> userId = repository.findById(id);
 		User user = userId.orElseThrow(
 				() -> new ObjectNotFoundException("Object not found! Id:" + id + ", Type: " + User.class.getName()));
