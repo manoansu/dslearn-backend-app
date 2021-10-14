@@ -1,4 +1,4 @@
-package pt.amane.dslearnbds.entities.services.exceptions;
+package pt.amane.dslearnbds.services.exceptions;
 
 public class DataBaseIntegrityViolationException extends RuntimeException {
 
